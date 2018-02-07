@@ -16,6 +16,8 @@ Production settings for django start project.
 
 import logging
 
+#  See:http://stackoverflow.com/questions/10390244/
+from storages.backends.s3boto3 import S3Boto3Storage
 
 from .base import *  # noqa
 
@@ -101,8 +103,6 @@ AWS_HEADERS = {
 # URL that handles the media served from MEDIA_ROOT, used for managing
 # stored files.
 
-#  See:http://stackoverflow.com/questions/10390244/
-from storages.backends.s3boto3 import S3Boto3Storage
 StaticRootS3BotoStorage = lambda: S3Boto3Storage(location='static')  # noqa
 MediaRootS3BotoStorage = lambda: S3Boto3Storage(location='media', file_overwrite=False)  # noqa
 DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
