@@ -4,6 +4,9 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
+from rest_framework import routers
+from rest_framework_swagger.views import get_swagger_view
+from start.apps.images.views import ImageViewSet
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
@@ -15,11 +18,21 @@ urlpatterns = [
     # User management
     url(r'^users/', include('start.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
-
-    # Your stuff: custom urls includes go here
-
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# swagger
+swagger_view = get_swagger_view(title="API")
+
+# api register routes:
+api_v1 = routers.DefaultRouter()
+api_v1.register(r'images', ImageViewSet, base_name="images")
+
+APIs = [
+    url(r"^api/v1/", include(api_v1.urls)),
+    url(r'^api/', swagger_view),
+]
+
+urlpatterns += APIs
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit

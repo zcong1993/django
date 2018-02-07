@@ -57,7 +57,8 @@ LOCAL_APPS = [
     'start.users.apps.UsersConfig',
     # Your stuff: custom apps go here
     'start.apps.images.apps.ImagesConfig',
-    'rest_framework'
+    'rest_framework',
+    'rest_framework_swagger',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -113,7 +114,7 @@ MANAGERS = ADMINS
 # Uses django-environ to accept uri format
 # See: https://django-environ.readthedocs.io/en/latest/#supported-types
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgres:///start'),
+    'default': env.db('DATABASE_URL', default='mysql://root:@/django'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
