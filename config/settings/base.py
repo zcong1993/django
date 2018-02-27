@@ -114,7 +114,17 @@ MANAGERS = ADMINS
 # Uses django-environ to accept uri format
 # See: https://django-environ.readthedocs.io/en/latest/#supported-types
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='mysql://root:@/django'),
+    # 'default': env.db('DATABASE_URL', default='postgres:///maneki'),
+
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'django.db',
+    },
+
+    'OPTIONS': {
+        'timeout': 20,  # fix error
+    }
+
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
