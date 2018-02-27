@@ -6,6 +6,7 @@ from .constants import Gender
 
 # Create your models here.
 class Image(BaseModel, SoftDeleteModel):
+    user_id = models.IntegerField(verbose_name=_("UserId"))
     name = models.CharField(max_length=255, verbose_name=_("image name"))
     url = models.CharField(max_length=255, verbose_name=_("image url"))
     gender = models.IntegerField(verbose_name="Gender", default=Gender.MALE, choices=Gender.choices)
